@@ -1,0 +1,19 @@
+<div class="gallery-container">
+  <div class="image">
+     <%= image_tag(@album.photos.first.image) if !@album.photos.empty?%>
+  <div class="prev nav disabled" style="display: none;"><</div>
+  <div class="next nav" style="display: none;"> > </div>
+  </div>
+  <div class="buttons">
+    <div class="btn-group">
+      <%= link_to raw('<i class="icon-backward"></i> first'), get_album_photo_path(@album, @album.photos.first, :which => "first",:format => :json), :class => "btn navigation prev disabled" %>
+      <%= link_to raw('<i class="icon-chevron-left"></i> prev'), get_album_photo_path(@album, @album.photos.first, :which => "prev",:format => :json), :class => "btn navigation prev exactly-prev disabled" %>
+      <%= link_to raw('<i class="icon-random"></i> random'), get_album_photo_path(@album, @album.photos.first, :which => "random",:format => :json), :class => "btn navigation random" %>
+      <%= link_to raw('<i class="icon-chevron-right"></i> next'), get_album_photo_path(@album, @album.photos.first, :which => "next",:format => :json), :class => "btn navigation next exactly-next" %>
+      <%= link_to raw('<i class="icon-forward"></i> last'), get_album_photo_path(@album, @album.photos.first, :which => "last",:format => :json), :class => "btn navigation next" %>
+    </div>
+  </div>
+</div>
+
+
+

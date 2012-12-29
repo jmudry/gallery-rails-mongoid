@@ -1,0 +1,18 @@
+<h1>Listing albums</h1>
+<div class="help-links"><%= link_to 'New Album', new_album_path, class: "btn" %></div>
+<% @albums.each do |album| %>
+    <div class="folder-icon-container">
+        <%= link_to album , :class => "folder-icon" do %>
+                <span class="name"><%= album.name %> (<%= album.photos.count %>)</span>
+        <% end %>
+        <%= image_tag(album.photos.first.image(:small), :class => "first-photo") if !album.photos.empty? %>
+        <span class="links">
+          <%= link_to(raw('<i class=" icon-eye-open"></i> Show'), album) %>
+          <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_album_path(album)) %>
+          <%= link_to(raw('<i class="icon-trash"></i> Delete'), album, method: :delete, data: { confirm: 'Are you sure?' } )%>
+        </span>
+    </div>
+<% end %>
+
+
+

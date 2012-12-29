@@ -1,0 +1,138 @@
+/*
+ *= require_self
+ *= require_tree .
+ */
+form#login-form {
+    margin: 0px;
+}
+form#login-form > div {
+    display: inline-block;
+    margin-right: 5px;
+}
+form#login-form input {
+    margin-top: 10px;
+}
+
+form#login-form  .register-link {
+    margin-top: 10px;
+}
+
+
+.user-signed-info {
+    padding: 10px 15px;
+    display: inline-block;
+}
+
+.folder-icon-container {
+    width: 200px;
+    height: 200px;
+    padding-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.folder-icon {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-image: url('folder-icon.png');
+    position: relative;
+}
+
+.folder-icon:hover {
+    background-image: url('folder-icon-hover.png');
+}
+
+.folder-icon-container .links {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.folder-icon-container .links a:hover {
+    text-decoration: none;
+}
+
+.folder-icon-container .first-photo {
+    position: absolute;
+    opacity: 0.3;
+    top: 65px;
+    left: 50px
+}
+
+.folder-icon .name {
+    position: absolute;
+    top: 45%;
+    text-align: center;
+    width: 180px;
+    margin: 10px;
+    color: white;
+    font-size: 24px;
+    z-index: 5;
+}
+.help-links {
+    margin-bottom: 15px;
+}
+.help-links a:hover {
+    text-decoration: none;
+}
+
+.gallery-container {
+    width: 600px;
+    height: 600px;
+
+    background: red;
+    margin: 0px auto;
+}
+
+
+.gallery-container .buttons {
+    text-align: center;
+}
+
+.gallery-container .image{
+    position: relative;
+    max-height: 500px;
+    line-height: 500px;
+    max-width: 600px;
+    margin: 0px auto;
+    text-align: center;
+}
+
+.gallery-container .image img {
+    vertical-align: middle;
+    max-height: 500px;
+    max-width: 600px;
+}
+
+.gallery-container .image .nav {
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    position: absolute;
+    top: 0px;
+    width: 50px;
+    height: 100%;
+    background: black;
+    opacity: 0.4;
+}
+
+.gallery-container .image .nav.disabled {
+    display: none!important;
+}
+
+.gallery-container .image .nav:hover {
+    opacity: 0.5;
+}
+
+.gallery-container .image .prev.nav {
+    left: 0px;
+}
+
+.gallery-container .image .next.nav {
+    right: 0px;
+}
