@@ -1,5 +1,7 @@
 <h1>New photo</h1>
 
-<%= render 'form' %>
+<div class="help-links">
+  <%= link_to(raw('<i class="icon-backward"></i> Show all'), photos_path) %>
+</div>
 
-<%= link_to 'Back', photos_path %>
+<%= render 'form' %>

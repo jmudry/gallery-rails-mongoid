@@ -35,6 +35,7 @@ class AlbumsController < ApplicationController
   # GET /albums/1/edit
   def edit
     @album = Album.find(params[:id])
+    @photos = @album.photos.order("id ASC").limit(15)
   end
 
   # POST /albums

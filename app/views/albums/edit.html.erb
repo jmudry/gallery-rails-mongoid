@@ -9,9 +9,9 @@
 
   <b>Photos: </b>
   <div id="photos-container">
-    <%= render :partial => "photos/photo", :collection => @album.photos.order("id ASC").limit(15) %>
+    <%= render :partial => "photos/photo", :collection => @photos %>
   </div>
 
-<%=  render :partial => "application/shared/more", :locals => {:path => get_album_photos_path(@album,{last_id: @album.photos.order("id ASC").limit(15).last.id, format: :json} ), :load_to=> "#photos-container"}   %>
+<%=  render :partial => "application/shared/more", :locals => {:path => get_album_photos_path(@album,{last_id: @photos.last.id, format: :json} ), :load_to => "#photos-container"}   %>
 
 

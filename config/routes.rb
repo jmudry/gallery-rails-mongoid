@@ -1,6 +1,8 @@
 GalleryRails::Application.routes.draw do
 
-  resources :photos
+  resources :photos do
+    match "get_next/(:last_id)" => "photos#get_photos", :on => :collection, :as => "get_next"
+  end
 
   resources :albums do
     resources :photos,  :only => []   do

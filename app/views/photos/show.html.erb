@@ -1,5 +1,6 @@
+<div class="help-links">
+  <%= link_to(raw('<i class="icon-backward"></i> Show all'), photos_path) %>
+  <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_photo_path(@photo)) %>
+</div>
+
 <%= render @photo%>
-
-
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
-<%= link_to 'Back', photos_path %>
