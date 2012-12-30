@@ -6,12 +6,12 @@
             $.ajax({
                 type: 'POST',
                 url: $(this).attr('href'),
-                success: function(data,status,jqxhr) {
+                success: function(data) {
                     var load_to = that.data('load-to');
                     $(load_to+"").append(data.html);
-                    if (data.url == "end")
+                    if (data.url === "end") {
                         that.hide();
-                    else {
+                    } else {
                         that.removeAttr('data-disabled').attr('href',data.url).removeClass("ajax-load").find('.middle').text('Load more');
                     }
                 }
@@ -19,7 +19,7 @@
             return false;
         };
 
-        return this.each(function(options) {
+        return this.each(function() {
             var that = $(this);
             var settings = $.extend( {
                 visibility : 500
@@ -34,5 +34,5 @@
             });
             return;
         });
-    }
+    };
 })(jQuery);
