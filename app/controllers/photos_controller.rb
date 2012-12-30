@@ -5,7 +5,6 @@ class PhotosController < ApplicationController
   def index
     @photos = Photo.order("id ASC").limit(@per_page)
 
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @photos }
@@ -41,8 +40,6 @@ class PhotosController < ApplicationController
                                       :html => render_to_string(:partial => "photos/photo", :collection => @photos)},
                            :layout => false}
     end
-
-
   end
 
   def show
@@ -54,7 +51,6 @@ class PhotosController < ApplicationController
     end
   end
 
-
   def new
     @photo = Photo.new
 
@@ -63,7 +59,6 @@ class PhotosController < ApplicationController
       format.json { render json: @photo }
     end
   end
-
 
   def edit
     @photo = Photo.find(params[:id])

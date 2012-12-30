@@ -1,6 +1,4 @@
 class AlbumsController < ApplicationController
-  # GET /albums
-  # GET /albums.json
   def index
     @albums = Album.all
 
@@ -10,8 +8,6 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # GET /albums/1
-  # GET /albums/1.json
   def show
     @album = Album.find(params[:id])
 
@@ -21,8 +17,6 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # GET /albums/new
-  # GET /albums/new.json
   def new
     @album = Album.new
 
@@ -32,14 +26,11 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # GET /albums/1/edit
   def edit
     @album = Album.find(params[:id])
     @photos = @album.photos.order("id ASC").limit(15)
   end
 
-  # POST /albums
-  # POST /albums.json
   def create
     @album = Album.new(params[:album])
     @album.user = current_user
@@ -54,8 +45,6 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # PUT /albums/1
-  # PUT /albums/1.json
   def update
     @album = Album.find(params[:id])
 
@@ -70,8 +59,6 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # DELETE /albums/1
-  # DELETE /albums/1.json
   def destroy
     @album = Album.find(params[:id])
     @album.destroy
@@ -128,7 +115,7 @@ class AlbumsController < ApplicationController
           :photo => {
               src: !res_photo.nil? ? res_photo.image(:medium) : "",
               id: !res_photo.nil? ? res_photo.id : "nil",
-              description: !res_photo.nil? ? res_photo.description : ""
+              description: !res_photo.nil? ? !res_photo.description.nil? ? res_photo.description : "" : ""
           }
         }
       }
