@@ -40,6 +40,9 @@ gem 'simple_form'
 # Baza danych
 gem 'mysql2'
 
+gem 'faker'
+gem 'populator'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

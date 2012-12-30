@@ -124,8 +124,13 @@ class AlbumsController < ApplicationController
           which: @which,
           prev: @prev,
           next: @next,
-          photo_id:  !res_photo.nil? ? res_photo.id : "nil",
-          src: !res_photo.nil? ? res_photo.image.url : "" } }
+          :photo => {
+              src: !res_photo.nil? ? res_photo.image(:medium) : "",
+              id: !res_photo.nil? ? res_photo.id : "nil",
+              description: !res_photo.nil? ? res_photo.description : ""
+          }
+        }
+      }
     end
   end
 

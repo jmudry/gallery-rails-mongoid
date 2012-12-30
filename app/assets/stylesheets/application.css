@@ -84,20 +84,20 @@ form#login-form  .register-link {
 .gallery-container {
     width: 600px;
     height: 600px;
-
-    background: red;
     margin: 0px auto;
 }
 
 
 .gallery-container .buttons {
     text-align: center;
+    margin-top: 15px;
 }
 
 .gallery-container .image{
     position: relative;
     max-height: 500px;
     line-height: 500px;
+    background-color: rgba(0,0,0,0.9);
     max-width: 600px;
     margin: 0px auto;
     text-align: center;
@@ -107,6 +107,25 @@ form#login-form  .register-link {
     vertical-align: middle;
     max-height: 500px;
     max-width: 600px;
+}
+
+.gallery-container .image .description {
+    display: none;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 10px;
+    right: 0;
+    line-height: 2em;
+    text-align: center;
+    margin: 0px auto;
+    background-color: #FEFEFE;
+    background-color: rgba(255, 255, 255, .7);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .5);
+    font-size: 14px;
+    color: #333;
+    text-shadow: 1px 1px 0 white;
+
 }
 
 .gallery-container .image .nav {
@@ -135,4 +154,36 @@ form#login-form  .register-link {
 
 .gallery-container .image .next.nav {
     right: 0px;
+}
+
+
+.photo-preview {
+    clear: both;
+    margin-bottom: 10px;
+    overflow: auto;
+}
+
+
+.show-more-ajax.ajax-load{
+    background: #F8F8F8 url("load_posts.gif") center center no-repeat !important;
+}
+
+/* more posts button */
+
+.show-more-ajax{
+    display: block;
+    witdth: 100%;
+    height: 30px;
+    border:  1px solid #EDEDED;
+    background: #F8F8F8;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.show-more-ajax .middle{
+    display: table-cell;
+    vertical-align: middle;
+    width: 520px;
+    height: 30px;
+    margin: 0 auto;
+    text-align: center;
 }

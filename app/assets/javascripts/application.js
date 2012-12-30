@@ -15,8 +15,6 @@
 //= require twitter/bootstrap
 //= require_tree .
 
-
-
 (function($) {
     $.fn.replaceAttr = function(options) {
         return this.each(function() {
@@ -35,15 +33,15 @@ $(function () {
                     var closest = $(that).closest('.gallery-container'),
                         image = closest.find('.image img'),
                         buttons = closest.find('.buttons a');
-                    if (data.photo_id !== 'nil') {
+                    if (data.photo.id !== 'nil') {
                         buttons.each(function (index, element) {
-                            var href = $(element).attr('href'),
-                                reg = /\/photos\/(\d*)\/get\//i
-                            href = href.replace(reg, "/photos/"+data.photo_id+"/get/")
+                            var href = $(element).attr('href');
+                            href = href.replace(/\/photos\/(\d*)\/get\//i, "/photos/"+data.photo.id+"/get/")
                             $(element).attr('href', href);
                             console.log(href);
                         });
                     }
+                    closest.find('.description').text(data.photo.description);
                     if (!data.prev) {
                         closest.find('.prev').addClass("disabled")
                     } else {
@@ -54,7 +52,7 @@ $(function () {
                     } else {
                         closest.find('.next').removeClass("disabled")
                     }
-                    image.attr('src', data.src)
+                    image.attr('src', data.photo.src)
 
 
                 }
@@ -70,6 +68,8 @@ $(function () {
 
 $(document).on("mouseleave", ".gallery-container .image", function () {
         $(this).find('.nav').fadeOut(300);
+        $(this).find('.description').slideUp(300);
+
     }
 );
 
@@ -81,6 +81,7 @@ $(document).on("mouseenter", ".gallery-container .image", function () {
         if (!$(this).hasClass('disabled')) {
             container.find(".image .nav.prev").fadeIn(300);
         }
+        $(this).find('.description').slideDown(300);
 });
 
 $(document).on('click','.gallery-container .image .nav', function () {
@@ -92,6 +93,25 @@ $(document).on('click','.gallery-container .image .nav', function () {
     }
 });
 
+//ajax load
 
 
-$("#test-plugin").replaceAttr("data-text").css("color","red");
+// load more posts
+$('.show-more-ajax').live('ajax:success',function(e,data,status,xhr){
+    var load_to = $(this).data('load-to');
+        $(load_to+"").append(data.html);
+    if (data.url == "end")
+        $(this).hide();
+    else {
+        $(this).removeAttr('data-disabled').attr('href',data.url).removeClass("ajax-load").find('.middle').text('Load more');
+    }}).live('click',function(){
+        $(this).attr('data-disabled',true).addClass("ajax-load").find(".middle").text("");
+    });
+
+
+$(window).scroll(function() {
+    if($(window).scrollTop() + $(window).height() > $(document).height() -500) {
+        $('.show-more-ajax:visible:not([data-disabled])').trigger('click');
+
+    }
+});

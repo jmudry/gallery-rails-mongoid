@@ -10,6 +10,36 @@ class PhotosController < ApplicationController
     end
   end
 
+  def get_photos
+    @album = Album.find params[:album_id]
+    last_id = params[:last_id]
+    per_page = 15
+
+    @photos = Photo.where(album_id: params[:album_id]).order("id ASC")
+
+    if last_id and last_id != 'end'
+      @photos = @photos.where("id > ?",last_id)
+    end
+
+    @photos = @photos.limit(per_page)
+
+    if @photos.empty? || params[:last_id] == 'end'
+      new_last_id = "end"
+    else
+      new_last_id =  @photos.last.id
+    end
+
+    @next_url = new_last_id == "end" ? "end" : get_album_photos_path(@album,{last_id:@photos.last.id, format: :json} )
+
+    respond_to do |format|
+      format.json { render :json => { :url => @next_url,
+                                      :html => render_to_string(:partial => "photos/photo", :collection => @photos)},
+                           :layout => false}
+    end
+
+
+  end
+
   # GET /photos/1
   # GET /photos/1.json
   def show

@@ -1,22 +1,4 @@
-<p>
-  <b>Name:</b>
-  <%= @photo.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @photo.description %>
-</p>
-
-<p>
-  <b>Album:</b>
-  <%= @photo.album.name %>
-</p>
-
-<p>
-   <b>Image:</b>
-  <%= image_tag (@photo.image(:small))%>
-</p>
+<%= render @photo%>
 
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |

@@ -1,27 +1,17 @@
 <h1>Editing album</h1>
 <div class="help-links">
   <%= link_to(raw('<i class="icon-backward"></i> Show all'), albums_path) %>
-  <%= link_to(raw('<i class="icon-eye-open"></i> Edit'), @album) %>
+  <%= link_to(raw('<i class="icon-eye-open"></i> Show'), @album) %>
 </div>
 
 <%= render 'form' %>
 
-<p>
-  <b>Photos: </b>
-  <% @album.photos.each{|photo| %>
-    <div style="clear: both; margin-bottom: 10px; overflow: auto;">
-      <div class="span2"> <%= image_tag photo.image(:small) %></div>
-      <div class="span2">
-        <div style="font-weight: bold;"><%= photo.name %></div>
-        <div style="font-style: italic;"><%= photo.description %></div>
-        <div class="links">
-          <%= link_to(raw('<i class=" icon-eye-open"></i> Show'), photo) %>
-          <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_photo_path(photo)) %>
-          <%= link_to(raw('<i class="icon-trash"></i> Delete'), photo, method: :delete, data: { confirm: 'Are you sure?' } )%>
-        </div>
 
-      </div>
-    </div>
-<% } %>
-</p>
+  <b>Photos: </b>
+  <div id="photos-container">
+    <%= render :partial => "photos/photo", :collection => @album.photos.order("id ASC").limit(15) %>
+  </div>
+
+<%=  render :partial => "application/shared/more", :locals => {:path => get_album_photos_path(@album,{last_id: @album.photos.order("id ASC").limit(15).last.id, format: :json} ), :load_to=> "#photos-container"}   %>
+
 

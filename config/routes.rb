@@ -5,6 +5,7 @@ GalleryRails::Application.routes.draw do
   resources :albums do
     resources :photos,  :only => []   do
       match 'get/:which' => "albums#get_photo", :on => :member, :as => "get"
+      match '(:last_id)' => "photos#get_photos" , :on => :collection, :as => "get"
     end
   end
 
