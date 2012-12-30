@@ -94,24 +94,4 @@ $(document).on('click','.gallery-container .image .nav', function () {
 });
 
 //ajax load
-
-
-// load more posts
-$('.show-more-ajax').live('ajax:success',function(e,data,status,xhr){
-    var load_to = $(this).data('load-to');
-        $(load_to+"").append(data.html);
-    if (data.url == "end")
-        $(this).hide();
-    else {
-        $(this).removeAttr('data-disabled').attr('href',data.url).removeClass("ajax-load").find('.middle').text('Load more');
-    }}).live('click',function(){
-        $(this).attr('data-disabled',true).addClass("ajax-load").find(".middle").text("");
-    });
-
-
-$(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() > $(document).height() -500) {
-        $('.show-more-ajax:visible:not([data-disabled])').trigger('click');
-
-    }
-});
+$('.show-more-ajax').ajaxPartLoad();
