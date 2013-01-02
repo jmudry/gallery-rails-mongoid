@@ -1,0 +1,51 @@
+
+<h2>Crop photo</h2>
+
+<script type="text/javascript" charset="utf-8">
+$(function() {
+  $('#cropbox').Jcrop({
+    onChange: update_crop,
+    onSelect: update_crop,
+    setSelect: [0, 0, 500, 600],
+    aspectRatio: 6/5
+  });
+});
+
+function update_crop(coords) {
+	var rx = 240/coords.w;
+	var ry = 200/coords.h;
+
+	$('#preview').css({
+		width: Math.round(rx * <%= @photo.image_geometry(:medium).width %>) + 'px',
+		height: Math.round(ry * <%= @photo.image_geometry(:medium).height %>) + 'px',
+		marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+		marginTop: '-' + Math.round(ry * coords.y) + 'px',
+        maxWidth: 'none'
+	});
+  var ratio = <%= @photo.image_geometry(:original).width %> / <%= @photo.image_geometry(:medium).width %>;
+
+  $("#crop_x").val(Math.round(coords.x * ratio));
+  $("#crop_y").val(Math.round(coords.y * ratio));
+  $("#crop_w").val(Math.round(coords.w * ratio));
+  $("#crop_h").val(Math.round(coords.h * ratio));
+}
+</script>
+<div class="center-inner" style="margin-top: 15px;">
+    <%= image_tag @photo.image.url(:medium), :id => "cropbox" %>
+</div>
+
+<div style="text-align: center; margin: 15px auto">
+<h3>Preview</h3>
+<div style="width:240px; height:200px; overflow:hidden;border: 5px solid #EE583D; display: inline-block; ">
+  <%= image_tag @photo.image.url(:medium), :id => "preview" %>
+</div>
+<br><br>
+<br>
+
+<%= form_for @photo, :url => photo_path(@photo) do |f| %>
+  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    <%= f.hidden_field attribute, :id => attribute %>
+  <% end %>
+  <p><%= f.submit "Crop" %></p>
+<% end %>
+</div>

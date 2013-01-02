@@ -2,6 +2,7 @@ GalleryRails::Application.routes.draw do
 
   resources :photos do
     match "get_next/(:last_id)" => "photos#get_photos", :on => :collection, :as => "get_next"
+    get "crop" => "photos#crop", :as => "crop", :on => :member
   end
 
   resources :albums do

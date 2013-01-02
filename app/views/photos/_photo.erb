@@ -1,3 +1,4 @@
+<% show = false if show.nil? %>
 <div class="photo-preview" style="clear: both; margin-bottom: 10px; overflow: auto;">
   <div class="span2"><%= image_tag photo.image(:small) %></div>
   <div class="span4">
@@ -10,4 +11,5 @@
       <%= link_to(raw('<i class="icon-trash"></i> Delete'), photo, method: :delete, data: { confirm: 'Are you sure?' } )%>
     </div>
   </div>
+  <div class="6"><%= image_tag photo.image(:medium) if show %></div>
 </div>

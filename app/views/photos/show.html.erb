@@ -3,4 +3,4 @@
   <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_photo_path(@photo)) %>
 </div>
 
-<%= render @photo%>
+<%= render :partial => "photos/photo", locals: {show: true, photo: @photo} %>

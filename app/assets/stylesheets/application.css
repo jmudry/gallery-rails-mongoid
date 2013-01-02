@@ -187,3 +187,13 @@ form#login-form  .register-link {
     margin: 0 auto;
     text-align: center;
 }
+
+
+.center-inner {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center-inner > * {
+    display: inline-block;
+}

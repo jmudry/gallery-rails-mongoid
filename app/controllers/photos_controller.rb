@@ -11,6 +11,10 @@ class PhotosController < ApplicationController
     end
   end
 
+  def crop
+    @photo = Photo.find(params[:id])
+  end
+
   def get_photos
     last_id = params[:last_id]
     @photos = Photo
@@ -18,7 +22,7 @@ class PhotosController < ApplicationController
     @photos = @photos.order("id ASC")
 
     if last_id and last_id != 'end'
-      @photos = @photos.where("id > ?",last_id)
+      @photos = @photos.where("id > ?", last_id)
     end
 
     @photos = @photos.limit(@per_page)
@@ -26,19 +30,19 @@ class PhotosController < ApplicationController
     if @photos.empty? || params[:last_id] == 'end'
       new_last_id = "end"
     else
-      new_last_id =  @photos.last.id
+      new_last_id = @photos.last.id
     end
     if !params[:album_id].nil?
 
-      @next_url = new_last_id == "end" ? "end" : get_album_photos_path(Album.find(params[:album_id]),{last_id:@photos.last.id, format: :json} )
+      @next_url = new_last_id == "end" ? "end" : get_album_photos_path(Album.find(params[:album_id]), {last_id: @photos.last.id, format: :json})
     else
-      @next_url = new_last_id == "end" ? "end" : get_next_photos_path({last_id:@photos.last.id, format: :json} )
+      @next_url = new_last_id == "end" ? "end" : get_next_photos_path({last_id: @photos.last.id, format: :json})
     end
 
     respond_to do |format|
-      format.json { render :json => { :url => @next_url,
-                                      :html => render_to_string(:partial => "photos/photo", :collection => @photos)},
-                           :layout => false}
+      format.json { render :json => {:url => @next_url,
+                                     :html => render_to_string(:partial => "photos/photo", :collection => @photos)},
+                           :layout => false }
     end
   end
 
@@ -67,28 +71,30 @@ class PhotosController < ApplicationController
   def create
     @photo = Photo.new(params[:photo])
 
-    respond_to do |format|
-      if @photo.save
-        format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
-        format.json { render json: @photo, status: :created, location: @photo }
+    if @photo.save
+      if params[:photo][:image].blank?
+        flash[:notice] = 'Photo was successfully created.'
+        redirect_to @photo
       else
-        format.html { render action: "new" }
-        format.json { render json: @photo.errors, status: :unprocessable_entity }
+        render :action => "crop"
       end
+    else
+      render action: "new"
     end
   end
 
   def update
     @photo = Photo.find(params[:id])
 
-    respond_to do |format|
-      if @photo.update_attributes(params[:photo])
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
-        format.json { head :no_content }
+    if @photo.update_attributes(params[:photo])
+      if params[:photo][:image].blank?
+        flash[:notice] = 'Photo was successfully updated.'
+        redirect_to @photo
       else
-        format.html { render action: "edit" }
-        format.json { render json: @photo.errors, status: :unprocessable_entity }
+        render :action => "crop"
       end
+    else
+      render :action => 'edit'
     end
   end
 
