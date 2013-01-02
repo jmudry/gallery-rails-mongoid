@@ -1,5 +1,6 @@
 (function($) {
     $.fn.ajaxPartLoad = function(options) {
+        var settings;
         var onclick = function() {
             $(this).attr('data-disabled',true).addClass("ajax-load").find(".middle").text("");
             var that = $(this);
@@ -8,7 +9,7 @@
                 url: $(this).attr('href'),
                 success: function(data) {
                     var load_to = that.data('load-to');
-                    $(load_to+"").append(data.html);
+                    $(settings.loadTo+"").append(data.html);
                     if (data.url === "end") {
                         that.hide();
                     } else {
@@ -21,8 +22,9 @@
 
         return this.each(function() {
             var that = $(this);
-            var settings = $.extend( {
-                visibility : 500
+            settings = $.extend( {
+                visibility : 500,
+                loadTo: typeof that.data('load-to') !== 'undefined' ? that.data('load-to') : 'body'
             }, options);
             that.live('click', onclick);
             $(window).scroll(function() {
