@@ -6,7 +6,7 @@
     <div style="font-weight: bold;"><%= photo.name %></div>
     <div style="font-style: italic;"><%= photo.description if !photo.description.nil? %></div>
     <div class="links">
-      <%= link_to(raw('<i class=" icon-eye-open"></i> Show'), photo) %>
+      <%= link_to(raw('<i class=" icon-eye-open"></i> Show'), photo) if !show %>
       <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_photo_path(photo)) %>
       <%= link_to(raw('<i class="icon-trash"></i> Delete'), photo, method: :delete, data: { confirm: 'Are you sure?' } )%>
     </div>

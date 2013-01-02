@@ -4,6 +4,7 @@ class Photo < ActiveRecord::Base
                   :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_image, :if => :cropping?
+
   has_attached_file :image, :styles => {
       :thumb  => "32x32",
       :small => "100x100",
@@ -12,6 +13,10 @@ class Photo < ActiveRecord::Base
   :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
   :url => "/system/:attachment/:id/:style/:filename",
   :processors => [:cropper]
+
+  validates :name, :presence => true, :length => {:in => 2..30}
+  validates :album, :presence => true
+  validates :image, :presence => true
 
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
