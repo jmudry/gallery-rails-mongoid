@@ -11,11 +11,11 @@ my_user = User.find_by_email "jairek@o2.pl"
 
 if !my_user.nil?
   motor_album = Album.new
-  motor_album.name = "Motors"
+  motor_album.name = "National Geographic"
   motor_album.user = my_user
   motor_album.save
 
-  motor_images =  get_image_with_directory "moto_wallpapers"
+  motor_images =  get_image_with_directory "National_Geographic"
 
   motor_images.each{|x|
     photo = Photo.new
