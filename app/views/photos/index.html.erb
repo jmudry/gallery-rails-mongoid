@@ -5,7 +5,7 @@
   <%= render :partial => "photos/photo", :collection => @photos %>
 </div>
 
-<%=  render :partial => "application/shared/more", :locals => {:path => get_next_photos_path({last_id: @photos.last.id, format: :json} ), :load_to => "#photos-container"}   %>
 
+<%=  render :partial => "application/shared/more", :locals => {:path => get_next_photos_path({last_id: @photos.last.id, format: :json} ), :load_to => "#photos-container"} if !@photos.empty?   %>
 
 

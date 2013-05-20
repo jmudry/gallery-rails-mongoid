@@ -26,7 +26,7 @@
                 visibility : 500,
                 loadTo: typeof that.data('load-to') !== 'undefined' ? that.data('load-to') : 'body'
             }, options);
-            that.live('click', onclick);
+            that.on('click', onclick);
             $(window).scroll(function () {
                 if ($(window).scrollTop() + $(window).height() > $(document).height() - settings.visibility) {
                     if (that.is(":visible") && that.data("disabled") !== false) {

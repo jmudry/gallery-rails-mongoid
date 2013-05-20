@@ -9,6 +9,7 @@ include ApplicationHelper
 
 my_user = User.find_by_email "jairek@o2.pl"
 
+
 if !my_user.nil?
   motor_album = Album.new
   motor_album.name = "National Geographic"
@@ -23,7 +24,13 @@ if !my_user.nil?
     photo.description = Populator.sentences 1
     photo.album = motor_album
     photo.image = File.open x.to_s
-    photo.save
+
+    if !photo.save
+      p "dont't save"
+    end
+
   }
+else
+  p "Brak usera jairek@o2.pl"
 end
 

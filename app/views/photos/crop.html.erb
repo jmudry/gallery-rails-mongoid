@@ -1,6 +1,6 @@
 
 <h2>Crop photo</h2>
-
+<%= @photo.image_geometry(:medium).width %>
 <script type="text/javascript" charset="utf-8">
 $(function() {
   $('#cropbox').Jcrop({
@@ -30,6 +30,8 @@ function update_crop(coords) {
   $("#crop_h").val(Math.round(coords.h * ratio));
 }
 </script>
+
+
 <div class="center-inner" style="margin-top: 15px;">
     <%= image_tag @photo.image.url(:medium), :id => "cropbox" %>
 </div>
