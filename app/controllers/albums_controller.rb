@@ -1,7 +1,6 @@
 class AlbumsController < ApplicationController
   def index
     @albums = Album.all
-    foo
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @albums }
@@ -88,8 +87,7 @@ class AlbumsController < ApplicationController
       @next = true if last_photo.id != res_photo.id
     else
       if @which == "prev"
-        photos = photos.lt(id: @photo.id)
-        photos.reverse!
+        photos = photos.lt(id: @photo.id).desc(:id)
         @prev = true if  photos.count > 1
         @next = true
       elsif @which == "next"
@@ -120,30 +118,6 @@ class AlbumsController < ApplicationController
         }
       }
     end
-  end
-
-
-  def foo
-    map = %Q{
-      function() {
-        if (this.photos == null) return;
-        for(var photo in this.photos) {
-          emit(photo.name, 1)
-        }
-      }
-    }
-
-    reduce = %Q{
-      function(key, values) {
-        return Array.sum(values)
-      }
-    }
-
-    p "======================================"
-    p Album.map_reduce(map,reduce).out(inline: true).find.to_a
-    p "======================================"
-
-
   end
 
 end
