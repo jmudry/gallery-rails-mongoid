@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '= 3.2.13.rc2'
 
-gem 'sqlite3'
-
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -36,3 +34,9 @@ gem 'mysql2'
 gem 'faker'
 gem 'populator'
 
+
+gem 'mongoid'
+gem 'bson_ext'
+
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'aws-sdk', '~> 1.3.4'

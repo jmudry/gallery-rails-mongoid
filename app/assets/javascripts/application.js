@@ -44,7 +44,7 @@ $(document).on('click', '.gallery-container a.navigation', function (e) {
                 if (data.photo.id !== 'nil') {
                     buttons.each(function (index, element) {
                         var href = $(element).attr('href');
-                        href = href.replace(/\/photos\/(\d*)\/get\//i, "/photos/"+data.photo.id+"/get/");
+                        href = href.replace(/\/photos\/(.*)\/get\//i, "/photos/"+data.photo.id+"/get/");
                         $(element).attr('href', href);
                     });
                 }

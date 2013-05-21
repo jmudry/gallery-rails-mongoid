@@ -1,8 +1,13 @@
-class Album < ActiveRecord::Base
+class Album
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :name
+
+ # embedded_in :user
   belongs_to :user
+  embeds_many :photos
   attr_accessible :name
 
-  has_many :photos, :dependent => :destroy
   validates :name, :presence => true, :uniqueness => true, :length => {:in => 2..30}
 
 end

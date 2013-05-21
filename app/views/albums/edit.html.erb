@@ -6,6 +6,8 @@
 
 <%= render 'form' %>
 
+<h2>New photo</h2>
+<%= render :partial => "photos/form", :locals => {album: @album, photo: @album.photos.new }  %>
 
   <b>Photos: </b>
   <div id="photos-container">

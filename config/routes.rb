@@ -1,14 +1,14 @@
 GalleryRails::Application.routes.draw do
 
-  resources :photos do
+  resources :photos, :only => [] do
     match "get_next/(:last_id)" => "photos#get_photos", :on => :collection, :as => "get_next"
     get "crop" => "photos#crop", :as => "crop", :on => :member
   end
 
   resources :albums do
-    resources :photos,  :only => []   do
+    resources :photos  do
       match 'get/:which' => "albums#get_photo", :on => :member, :as => "get"
-      match '(:last_id)' => "photos#get_photos" , :on => :collection, :as => "get"
+      post 'get_photos/(:last_id)' => "photos#get_photos" , :on => :collection, :as => "get"
     end
   end
 

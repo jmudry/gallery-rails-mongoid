@@ -1,7 +1,7 @@
 class AlbumsController < ApplicationController
   def index
     @albums = Album.all
-
+    foo
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @albums }
@@ -28,7 +28,8 @@ class AlbumsController < ApplicationController
 
   def edit
     @album = Album.find(params[:id])
-    @photos = @album.photos.order("id ASC").limit(15)
+    @photos = @album.photos.asc(:id).take(15)
+
   end
 
   def create
@@ -36,7 +37,7 @@ class AlbumsController < ApplicationController
     @album.user = current_user
     respond_to do |format|
       if @album.save
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
+        format.html { redirect_to albums_url, notice: 'Album was successfully created.' }
         format.json { render json: @album, status: :created, location: @album }
       else
         format.html { render action: "new" }
@@ -71,9 +72,9 @@ class AlbumsController < ApplicationController
 
   def get_photo
     @album = Album.find(params[:album_id])
-    @photo = Photo.find(params[:id])
+    @photo = @album.photos.find(params[:id])
     @which = params[:which]
-    photos = @album.photos.order("id ASC")
+    photos = @album.photos.asc(:id)
     count_all = photos.count
     @prev = false
     @next = false
@@ -81,19 +82,18 @@ class AlbumsController < ApplicationController
     if @which == "random"
       first_photo = photos.first
       last_photo = photos.last
-      photos = photos.where("id != ?", @photo.id)
-      photos.shuffle!
-      res_photo = photos.first
+      photos = photos.ne(id: @photo.id)
+      res_photo = photos.sample
       @prev = true if first_photo.id != res_photo.id
       @next = true if last_photo.id != res_photo.id
     else
       if @which == "prev"
-        photos = photos.where("id < ?", @photo.id)
+        photos = photos.lt(id: @photo.id)
         photos.reverse!
         @prev = true if  photos.count > 1
         @next = true
       elsif @which == "next"
-        photos = photos.where("id > ?", @photo.id)
+        photos = photos.gt(id: @photo.id)
         @prev = true
         @next = true if  photos.count > 1
       elsif @which == "first"
@@ -104,9 +104,9 @@ class AlbumsController < ApplicationController
         @prev = true if count_all > 0
         @next = false
       end
-
+      res_photo = photos.first
     end
-    res_photo = photos.first
+
     respond_to do |format|
       format.json { render :json => {
           which: @which,
@@ -120,6 +120,30 @@ class AlbumsController < ApplicationController
         }
       }
     end
+  end
+
+
+  def foo
+    map = %Q{
+      function() {
+        if (this.photos == null) return;
+        for(var photo in this.photos) {
+          emit(photo.name, 1)
+        }
+      }
+    }
+
+    reduce = %Q{
+      function(key, values) {
+        return Array.sum(values)
+      }
+    }
+
+    p "======================================"
+    p Album.map_reduce(map,reduce).out(inline: true).find.to_a
+    p "======================================"
+
+
   end
 
 end

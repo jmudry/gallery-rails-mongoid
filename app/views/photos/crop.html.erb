@@ -1,6 +1,5 @@
 
 <h2>Crop photo</h2>
-<%= @photo.image_geometry(:medium).width %>
 <script type="text/javascript" charset="utf-8">
 $(function() {
   $('#cropbox').Jcrop({
@@ -44,7 +43,7 @@ function update_crop(coords) {
 <br><br>
 <br>
 
-<%= form_for @photo, :url => photo_path(@photo) do |f| %>
+<%= form_for @photo, :url => album_photo_path(@album, @photo) do |f| %>
   <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
     <%= f.hidden_field attribute, :id => attribute %>
   <% end %>

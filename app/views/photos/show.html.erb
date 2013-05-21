@@ -1,6 +1,6 @@
 <div class="help-links">
-  <%= link_to(raw('<i class="icon-backward"></i> Show all'), photos_path) %>
-  <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_photo_path(@photo)) %>
+  <%= link_to(raw('<i class="icon-backward"></i> Show all'), album_photos_path([@photo.album])) %>
+  <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_album_photo_path([@photo.album, @photo])) %>
 </div>
 
 <%= render :partial => "photos/photo", locals: {show: true, photo: @photo} %>

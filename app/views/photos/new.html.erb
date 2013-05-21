@@ -1,7 +1,7 @@
-<h1>New photo</h1>
+<h1>New photo to album <%= @album.name%></h1>
 
 <div class="help-links">
-  <%= link_to(raw('<i class="icon-backward"></i> Show all'), photos_path) %>
+  <%= link_to(raw('<i class="icon-backward"></i> Show all'), album_photos_path(@album)) %>
 </div>
 
-<%= render 'form' %>
+<%= render :partial => "photos/form", locals: {photo: @photo, album: @album} %>

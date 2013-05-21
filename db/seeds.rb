@@ -7,29 +7,31 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 include ApplicationHelper
 
-my_user = User.find_by_email "jairek@o2.pl"
+my_user = User.where(email: "jairek@o2.pl").first
 
 
 if !my_user.nil?
   motor_album = Album.new
   motor_album.name = "National Geographic"
   motor_album.user = my_user
-  motor_album.save
+  if motor_album.save
 
   motor_images =  get_image_with_directory "National_Geographic"
 
   motor_images.each{|x|
-    photo = Photo.new
+    photo = motor_album.photos.new
     photo.name = Populator.words(1)
     photo.description = Populator.sentences 1
-    photo.album = motor_album
     photo.image = File.open x.to_s
 
     if !photo.save
       p "dont't save"
     end
-
   }
+  else
+    p "Error create album"
+  end
+
 else
   p "Brak usera jairek@o2.pl"
 end

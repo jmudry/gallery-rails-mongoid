@@ -2,13 +2,12 @@
 <div class="photo-preview" style="clear: both; margin-bottom: 10px; overflow: auto;">
   <div class="span2"><%= image_tag photo.image(:small) %></div>
   <div class="span4">
-    <div><%=  photo.id %></div>
     <div style="font-weight: bold;"><%= photo.name %></div>
     <div style="font-style: italic;"><%= photo.description if !photo.description.nil? %></div>
     <div class="links">
-      <%= link_to(raw('<i class=" icon-eye-open"></i> Show'), photo) if !show %>
-      <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_photo_path(photo)) %>
-      <%= link_to(raw('<i class="icon-trash"></i> Delete'), photo, method: :delete, data: { confirm: 'Are you sure?' } )%>
+      <%= link_to(raw('<i class=" icon-eye-open"></i> Show'), [photo.album, photo]) if !show %>
+      <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_album_photo_path(photo.album, photo)) %>
+      <%= link_to(raw('<i class="icon-trash"></i> Delete'), [photo.album, photo], method: :delete, data: { confirm: 'Are you sure?' } )%>
     </div>
   </div>
   <div class="6"><%= image_tag photo.image(:medium) if show %></div>

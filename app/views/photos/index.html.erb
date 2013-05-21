@@ -1,11 +1,10 @@
 <h1>Listing photos</h1>
-<div class="help-links"><%= link_to 'New Photo', new_photo_path, :class => "btn" %></div>
+<div class="help-links"><%= link_to 'New Photo', new_album_photo_path(@album), :class => "btn" %></div>
 
 <div id="photos-container">
   <%= render :partial => "photos/photo", :collection => @photos %>
 </div>
 
-
-<%=  render :partial => "application/shared/more", :locals => {:path => get_next_photos_path({last_id: @photos.last.id, format: :json} ), :load_to => "#photos-container"} if !@photos.empty?   %>
-
-
+<% if !@photos.empty? %>
+  <%=  render :partial => "application/shared/more", :locals => {:path => get_album_photos_path(@album,{last_id: @photos.last.id, format: :json} ), :load_to => "#photos-container"}   %>
+<% end %>

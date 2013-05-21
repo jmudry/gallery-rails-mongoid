@@ -1,11 +1,17 @@
-class Photo < ActiveRecord::Base
-  belongs_to :album
+class Photo
+  include Mongoid::Document
+  include Mongoid::Paperclip
+  include Mongoid::Timestamps
+  embedded_in :album, :inverse_of => :photos
+  field :description
+  field :name
+
   attr_accessible :description, :name, :image_content_type, :image_file_name, :image_file_size, :image_updated_at, :album_id, :image,
                   :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_image, :if => :cropping?
 
-  has_attached_file :image, :styles => {
+  has_mongoid_attached_file :image, :styles => {
       :thumb  => "32x32",
       :small => "100x100",
       :medium => "600x500"
@@ -14,8 +20,6 @@ class Photo < ActiveRecord::Base
   :url => "/system/:attachment/:id/:style/:filename",
   :processors => [:cropper]
 
-  validates :name, :presence => true, :length => {:in => 2..30}
-  validates :album, :presence => true
   validates :image, :presence => true
 
   def cropping?
