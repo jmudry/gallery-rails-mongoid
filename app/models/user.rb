@@ -28,10 +28,9 @@ class User < ActiveRecord::Base
   field :last_sign_in_ip,    :type => String
 
   # run 'rake db:mongoid:create_indexes' to create indexes
-  index({ email: 1 }, { unique: true, background: true })
+ # index({ email: 1 }, { unique: true, background: true })
 
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :name, :slug
 
   has_many :albums
 

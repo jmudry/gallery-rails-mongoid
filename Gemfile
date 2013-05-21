@@ -18,7 +18,7 @@ gem 'jquery-rails'
 
 # Serwer
 gem 'thin'
-gem 'devise'
+gem 'devise', ">= 2.1.2"
 
 # Upload avatarow
 gem 'cocaine', '= 0.2.1'

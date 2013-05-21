@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
   def index
-    @albums = Album.all
+    @albums = Album.all.sort{|b,a| a.photos.count <=> b.photos.count}
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @albums }
@@ -98,7 +98,7 @@ class AlbumsController < ApplicationController
         @prev = false
         @next = true if count_all > 0
       elsif @which == "last"
-        photos.reverse!
+        photos = photos.desc(:id)
         @prev = true if count_all > 0
         @next = false
       end

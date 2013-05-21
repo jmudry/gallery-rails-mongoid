@@ -1,10 +1,10 @@
 
 <div>
-<%= simple_form_for User.new, :url => session_path('user'), :namespace => "login", :html => {:id => "login-form", :class => "form-inline"} do |f| %>
+<%= simple_form_for User.new, :url => user_session_path, :namespace => "login", :html => {:id => "login-form", :class => "form-inline"} do |f| %>
         <%= f.input :email , :as => "string", :label => false, :placeholder => "Email",   :input_html => { class: "input-small"} %>
         <%= f.input :password, :label => false, :placeholder => "Password" , :input_html => { class: "input-small"}  %>
         <%= f.submit 'Log in', class: "btn" %>
-         <%= link_to "Register" , register_path, :class => "register-link btn btn-info"%>
+         <%= link_to "Register" , new_user_registration_path, :class => "register-link btn btn-info"%>
 <% end %>
 
 </div>

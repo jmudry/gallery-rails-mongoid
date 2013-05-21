@@ -1,1 +1,19 @@
-<h1> Welcome to gallery-rails</h1>
+
+<h2 style="margin: 0px auto; text-align: center">Formaty zdjęć</h2>
+<div id="format-container"></div>
+<h2 style="margin: 0px auto; text-align: center">Ilość dodawanych zdjęć w przeciągu czasu</h2>
+<div id="upload-dates"></div>
+
+<script type="text/javascript">
+  Morris.Donut({
+    element: 'format-container',
+    data: <%= raw @formats.to_json %>
+  });
+  Morris.Line({
+    element: 'upload-dates',
+    data: <%= raw @dates.to_json %>,
+    xkey: 'y',
+    ykeys: ['x'],
+    labels: ['Upload count', 'Series B']
+  });
+</script>
