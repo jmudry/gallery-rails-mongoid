@@ -1,13 +1,14 @@
 include ApplicationHelper
 
+my_user = User.new
 # Ustawiamy usera
-user_email = "jairek@o2.pl"
-album_name = "Moto Wallpapers"  #nazwa naszego albumu
-album_directory_name = "moto_wallpapers" # katalog o takiej nazwie powienien znaleźć się w katalogu public/
+my_user.email = "admin@example.com"
+my_user.password = "adminadmin"
+my_user.save
+
+album_name = "Example"  #nazwa naszego albumu
+album_directory_name = "example_photos" # katalog o takiej nazwie powienien znaleźć się w katalogu public/
 rand_days = 20 #do losowania daty
-
-my_user = User.where(email: user_email ).first
-
 
 if !my_user.nil?
   album = Album.new
