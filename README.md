@@ -10,6 +10,7 @@ Przykładowa galeria zdjęć z wykorzystaniem bazy MongoDB oraz paperclip
 ## Uruchomienie
 
 ```bash
+bundle install
 rake db:seed
 rails s
 ```
